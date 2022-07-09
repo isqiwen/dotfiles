@@ -22,7 +22,6 @@ InstallArchPackages() {
     yay -S wget
     yay -S base-devel
     yay -S cmake
-    yay -S neovim
     yay -S visual-studio-code-insiders-bin
     yay -S google-chrome
     yay -S bat
@@ -122,6 +121,14 @@ InstallOhMyZshPlugins() {
     git clone https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
 }
 
+InstallNeovim() {
+    yay -S neovim
+
+    rm -rf ${HOME}/.config/nvim
+
+    git clone https://github.com/isqiwen/UNvChad.git ${HOME}/.config/nvim
+}
+
 CreateSymlinks() {
     for f in "$1"/* "$1"/.[^.]*; do
         if echo "$f" | egrep '.*\/?((\.){1,2}|.git|assets|README.md|install.sh|tags)$' > /dev/null; then
@@ -152,10 +159,11 @@ Main() {
     AInstallPackages="InstallPackages"
     AInstallOhMyZsh="InstallOhMyZsh"
     AInstallOhMyZshPlugins="InstallOhMyZshPlugins"
+    AInstallNeovim="InstallNeovim"
     ACreateSymlinks="CreateSymlinks"
     AQuit="Quit"
 
-    items=(${ACreateDirectories} ${AInstallPackages} ${AInstallOhMyZsh} ${AInstallOhMyZshPlugins} ${ACreateSymlinks} ${AQuit})
+    items=(${ACreateDirectories} ${AInstallPackages} ${AInstallOhMyZsh} ${AInstallOhMyZshPlugins} ${AInstallNeovim} ${ACreateSymlinks} ${AQuit})
 
     select action in "${items[@]}"
     do
@@ -168,6 +176,8 @@ Main() {
                 InstallOhMyZsh;;
             ${AInstallOhMyZshPlugins})
                 InstallOhMyZshPlugins;;
+            ${AInstallNeovim})
+                InstallNeovim;;
             ${ACreateSymlinks})
                 CreateSymlinks .;;
             ${AQuit})
