@@ -146,6 +146,9 @@ unset __conda_setup
 
 export PATH="$HOME/.local/bin:${PATH}"
 
+# matlab
+export MATLAB_ROOT_DIR="/usr/local/Polyspace/R2021a"
+
 # Store your own aliases in the ~/.aliases file and load the here.
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 

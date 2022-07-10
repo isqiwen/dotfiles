@@ -19,6 +19,7 @@ InstallArchPackages() {
 
     yay -S git
     yay -S curl
+    yay -S unrar
     yay -S wget
     yay -S base-devel
     yay -S cmake
@@ -38,6 +39,7 @@ InstallArchPackages() {
     yay -S exa
     yay -S yt-dlp
     yay -S vlc
+    yay -S miniconda3
     yay -S onedriver
 
     # Install input method
@@ -133,7 +135,7 @@ InstallNeovim() {
 
 CreateSymlinks() {
     for f in "$1"/* "$1"/.[^.]*; do
-        if echo "$f" | egrep '.*\/?((\.){1,2}|.git|assets|README.md|install.sh|tags)$' > /dev/null; then
+        if echo "$f" | egrep '.*\/?((\.){1,2}|.git|assets|README.md|install.sh|matlab_install.sh|matlab_crack.sh|tags)$' > /dev/null; then
             continue
         fi
         if [[ -f $f ]]; then
