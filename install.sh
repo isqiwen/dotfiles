@@ -2,7 +2,7 @@
 
 CreateDirectories() {
     echo "Creating Downloads/YouTube,Documents,Work,Sources,Dev,Org,Work,Pictures/Screenshots"
-    mkdir -pv ~/{Downloads/YouTube,Documents,Work,Sources,Dev,Org,Work,Pictures/Screenshots}/
+    mkdir -pv ~/{Downloads/YouTube,Documents,Work,Sources,Dev,Org,Work,Pictures/Screenshots,OneDrive}/
 }
 
 InstallArchPackages() {
@@ -37,6 +37,8 @@ InstallArchPackages() {
     yay -S prettyping
     yay -S exa
     yay -S yt-dlp
+    yay -S vlc
+    yay -S onedriver
 
     # Install input method
     yay -S fcitx
