@@ -5,7 +5,6 @@ alias ll="exa -l --icons --color=auto"
 alias ls="exa --color=auto"
 alias fp="fzf --preview 'bat --color "always" {}'"
 alias ping="prettyping --nolegend"
-alias code="code-insiders"
 alias python="python3"
 
 # Get External IP / Internet Speed
@@ -14,8 +13,3 @@ alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/m
 
 # Quickly serve the current directory as HTTP
 alias serve='ruby -run -e httpd . -p 8000' # Or python -m SimpleHTTPServer :)
-
-# matlab
-if [[ -f ${MATLAB_ROOT_DIR}/bin/matlab ]]; then
-    alias matlab="${MATLAB_ROOT_DIR}/bin/matlab"
-fi

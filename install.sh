@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+set -e
+
 CreateDirectories() {
-    echo "Creating Downloads/YouTube,Documents,Work,Sources,Dev,Org,Work,Pictures/Screenshots"
-    mkdir -pv ~/{Downloads/YouTube,Documents,Work,Sources,Dev,Org,Work,Pictures/Screenshots,OneDrive}/
+    echo "Creating Downloads,Documents,Pictures/Screenshots,workspace"
+    mkdir -pv ~/{Downloads,Documents,Pictures/Screenshots,workspace}/
 }
 
 InstallArchPackages() {
@@ -22,40 +24,38 @@ InstallArchPackages() {
     yay -S unrar
     yay -S wget
     yay -S base-devel
+    yay -S make
+    yay -S ninja
     yay -S cmake
-    yay -S visual-studio-code-insiders-bin
+    yay -S clang
+    yay -S visual-studio-code-bin
     yay -S google-chrome
     yay -S bat
     yay -S ripgrep
     yay -S fd
     yay -S tldr
-    yay -S wezterm
     yay -S flameshot
     yay -S tmux
     yay -S astrill
     yay -S deepin-file-manager
     yay -S ncdu
     yay -S prettyping
+    yay -S htop
+    yay -S tree
     yay -S exa
+    yay -S fzf
     yay -S yt-dlp
     yay -S vlc
     yay -S miniconda3
-    yay -S onedriver
 
     # Install input method
     yay -S fcitx
     yay -S fcitx-configtool
     yay -S fcitx-googlepinyin
 
-    # fonts
-    yay -S ttf-fira-code
-    yay -S nerd-fonts-hermit
-    yay -S ttf-cascadia-code
-    fc-cache -fv
-
-    # ruby
-    yay -S ruby
-    gem install webrick
+    yay -S python3
+    yay -S pip
+    python3 -m pip install conan
 }
 
 InstallDebPackages() {
@@ -66,16 +66,51 @@ InstallDebPackages() {
     sudo apt-get autoclean
     sudo apt-get clean
 
+    sudo apt install git
+    sudo apt install curl
+    sudo apt install unrar
+    sudo apt install wget
+    sudo apt install build-essential
+    sudo apt install make
+    sudo apt install ninja-build
+    sudo apt install cmake
+    sudo apt install clang
+    sudo apt install bat
+    sudo apt install ripgrep
+    sudo apt install tldr
+    sudo apt install flameshot
+    sudo apt install tmux
+    sudo apt install astrill
+    sudo apt install ncdu
+    sudo apt install prettyping
+    sudo apt install htop
+    sudo apt install tree
+    sudo apt install exa
+    sudo apt install fzf
+    sudo apt install yt-dlp
+    sudo apt install vlc
+
+    # Install input method
+    sudo apt install fcitx
+    sudo apt install fcitx-googlepinyin
+
+    sudo apt install python3
+    sudo apt install pip
+    python3 -m pip install conan
+
+    sudo snap install --classic code
+
     cd /tmp/
 
-    wget https://github.com/sharkdp/bat/releases/download/v0.18.1/bat-musl_0.18.1_amd64.deb
-    sudo dpkg -i bat-musl_0.18.1_amd64.deb
-
-    wget https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
-    sudo dpkg -i ripgrep_13.0.0_amd64.deb
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo dpkg -i google-chrome-stable_current_amd64.deb
 
     wget https://github.com/sharkdp/fd/releases/download/v8.2.1/fd_8.2.1_amd64.deb
     sudo dpkg -i fd_8.2.1_amd64.deb
+
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    sudo chmod +x Miniconda3-latest-Linux-x86_64.sh
+    ./Miniconda3-latest-Linux-x86_64.sh -u
 }
 
 InstallPackages() {
@@ -92,7 +127,14 @@ InstallPackages() {
 
 InstallOhMyZsh() {
     echo "Installing ohmyzsh"
-    yay -S fzf
+
+    if [[ -f /etc/arch-release ]]; then
+        yay -S zsh
+    elif [[ -f /etc/debian_version ]]; then
+        sudo apt install zsh
+    else
+        echo "Unsupported OS"
+    fi
 
     chsh -s $(which zsh)
 
@@ -126,7 +168,14 @@ InstallOhMyZshPlugins() {
 }
 
 InstallNeovim() {
-    yay -S neovim
+    if [[ -f /etc/arch-release ]]; then
+        yay -S neovim
+    elif [[ -f /etc/debian_version ]]; then
+        sudo apt install neovim
+    else
+        echo "Unsupported OS"
+    fi
+
 
     rm -rf ${HOME}/.config/nvim
 
@@ -135,7 +184,7 @@ InstallNeovim() {
 
 CreateSymlinks() {
     for f in "$1"/* "$1"/.[^.]*; do
-        if echo "$f" | egrep '.*\/?((\.){1,2}|.git|assets|README.md|install.sh|matlab_install.sh|matlab_crack.sh|tags)$' > /dev/null; then
+        if echo "$f" | egrep '.*\/?((\.){1,2}|.git|assets|README.md|install.sh|tags)$' > /dev/null; then
             continue
         fi
         if [[ -f $f ]]; then
