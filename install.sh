@@ -47,6 +47,7 @@ InstallArchPackages() {
     yay -S yt-dlp
     yay -S vlc
     yay -S miniconda3
+    yay -S autojump
 
     # Install input method
     yay -S fcitx
@@ -54,7 +55,7 @@ InstallArchPackages() {
     yay -S fcitx-googlepinyin
 
     yay -S python3
-    yay -S pip
+    yay -S python-pip
     python3 -m pip install conan
 }
 
@@ -89,6 +90,7 @@ InstallDebPackages() {
     sudo apt install fzf
     sudo apt install yt-dlp
     sudo apt install vlc
+    sudo apt install autojump
 
     # Install input method
     sudo apt install fcitx
