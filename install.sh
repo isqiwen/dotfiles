@@ -186,7 +186,7 @@ InstallNeovim() {
 
 CreateSymlinks() {
     for f in "$1"/* "$1"/.[^.]*; do
-        if echo "$f" | egrep '.*\/?((\.){1,2}|.git|assets|README.md|install.sh|tags)$' > /dev/null; then
+        if echo "$f" | egrep '.*\/?((\.){1,2}|.git|assets|README.md|install.sh|.dev|tags)$' > /dev/null; then
             continue
         fi
         if [[ -f $f ]]; then

@@ -1,0 +1,32 @@
+{
+    "profiles": [
+        {
+            "name":"linux-debug",
+            "conanFile": "${workspaceFolder}/conanfile.txt",
+            "profile":"gcc9_and_cppstd17.jinja",
+            "installArg": "--build missing -s build_type=Debug -if build",
+            "buildArg":""
+        },
+        {
+            "name":"linux-release",
+            "conanFile": "${workspaceFolder}/conanfile.txt",
+            "profile":"gcc9_and_cppstd17.jinja",
+            "installArg": "--build missing -s build_type=Release -if build",
+            "buildArg":"-bf install"
+        },
+        {
+            "name":"windows-debug",
+            "conanFile": "${workspaceFolder}/conanfile.txt",
+            "profile":"vs16_and_cppstd17",
+            "installArg": "--build missing -s build_type=Debug -if build",
+            "buildArg":""
+        },
+        {
+            "name":"windows-release",
+            "conanFile": "${workspaceFolder}/conanfile.txt",
+            "profile":"vs16_and_cppstd17",
+            "installArg": "--build missing -s build_type=Release -if build",
+            "buildArg":""
+        }
+    ]
+}
