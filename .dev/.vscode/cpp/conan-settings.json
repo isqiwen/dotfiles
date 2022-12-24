@@ -17,14 +17,14 @@
         {
             "name":"windows-debug",
             "conanFile": "${workspaceFolder}/conanfile.txt",
-            "profile":"vs16_and_cppstd17",
+            "profile":"vs17_and_cppstd20",
             "installArg": "--build missing -s build_type=Debug -if build",
             "buildArg":""
         },
         {
             "name":"windows-release",
             "conanFile": "${workspaceFolder}/conanfile.txt",
-            "profile":"vs16_and_cppstd17",
+            "profile":"vs17_and_cppstd20",
             "installArg": "--build missing -s build_type=Release -if build",
             "buildArg":""
         }
