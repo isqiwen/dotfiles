@@ -56,13 +56,13 @@ InstallArchPackages() {
 
     yay -S python3
     yay -S python-pip
-    python3 -m pip install conan
+    python3 -m pip install conan -i https://pypi.tuna.tsinghua.edu.cn/simple
 }
 
 InstallDebPackages() {
+    sudo sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list
     sudo apt-get update
     sudo apt-get upgrade
-    sudo apt-get install $(grep -vE "^\s*#" ~/dotfiles/packages.deb.txt  | tr "\n" " ")
     sudo apt-get autoremove
     sudo apt-get autoclean
     sudo apt-get clean
@@ -97,8 +97,8 @@ InstallDebPackages() {
     sudo apt install fcitx-googlepinyin
 
     sudo apt install python3
-    sudo apt install pip
-    python3 -m pip install conan
+    sudo apt install python3-pip
+    python -m pip install conan -i https://pypi.tuna.tsinghua.edu.cn/simple
 
     sudo snap install --classic code
 
