@@ -1,7 +1,9 @@
 if [[ -f /etc/arch-release ]]; then
     alias cat="bat"
+    alias fp="fzf --preview 'cat --color "always" {}'"
 elif [[ -f /etc/debian_version ]]; then
     alias cat="batcat"
+    alias fp="fzf --preview 'batcat --color "always" {}'"
 else
     echo "Unsupported OS"
 fi
@@ -10,7 +12,6 @@ alias l="exa"
 alias la="exa -a"
 alias ll="exa -l --icons --color=auto"
 alias ls="exa --color=auto"
-alias fp="fzf --preview 'cat --color "always" {}'"
 alias ping="prettyping --nolegend"
 alias python="python3"
 
