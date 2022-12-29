@@ -19,43 +19,43 @@ InstallArchPackages() {
 
     sudo pacman -S yay
 
-    yay -S git
-    yay -S curl
-    yay -S unrar
-    yay -S wget
-    yay -S base-devel
-    yay -S make
-    yay -S ninja
-    yay -S cmake
-    yay -S clang
-    yay -S visual-studio-code-bin
-    yay -S google-chrome
-    yay -S bat
-    yay -S ripgrep
-    yay -S fd
-    yay -S tldr
-    yay -S flameshot
-    yay -S tmux
-    yay -S astrill
-    yay -S deepin-file-manager
-    yay -S ncdu
-    yay -S prettyping
-    yay -S htop
-    yay -S tree
-    yay -S exa
-    yay -S fzf
-    yay -S yt-dlp
-    yay -S vlc
-    yay -S miniconda3
-    yay -S autojump
+    yay -Sy --needed git
+    yay -Sy --needed curl
+    yay -Sy --needed unrar
+    yay -Sy --needed wget
+    yay -Sy --needed base-devel
+    yay -Sy --needed make
+    yay -Sy --needed ninja
+    yay -Sy --needed cmake
+    yay -Sy --needed clang
+    yay -Sy --needed visual-studio-code-bin
+    yay -Sy --needed google-chrome
+    yay -Sy --needed bat
+    yay -Sy --needed ripgrep
+    yay -Sy --needed fd
+    yay -Sy --needed tldr
+    yay -Sy --needed flameshot
+    yay -Sy --needed tmux
+    yay -Sy --needed astrill
+    yay -Sy --needed deepin-file-manager
+    yay -Sy --needed ncdu
+    yay -Sy --needed prettyping
+    yay -Sy --needed htop
+    yay -Sy --needed tree
+    yay -Sy --needed exa
+    yay -Sy --needed fzf
+    yay -Sy --needed yt-dlp
+    yay -Sy --needed vlc
+    yay -Sy --needed miniconda3
+    yay -Sy --needed autojump
 
     # Install input method
-    yay -S fcitx
-    yay -S fcitx-configtool
-    yay -S fcitx-googlepinyin
+    yay -Sy --needed fcitx
+    yay -Sy --needed fcitx-configtool
+    yay -Sy --needed fcitx-googlepinyin
 
-    yay -S python3
-    yay -S python-pip
+    yay -Sy --needed python3
+    yay -Sy --needed python-pip
     python3 -m pip install conan -i https://pypi.tuna.tsinghua.edu.cn/simple
 }
 
@@ -67,37 +67,37 @@ InstallDebPackages() {
     sudo apt-get autoclean
     sudo apt-get clean
 
-    sudo apt install git
-    sudo apt install curl
-    sudo apt install unrar
-    sudo apt install wget
-    sudo apt install build-essential
-    sudo apt install make
-    sudo apt install ninja-build
-    sudo apt install cmake
-    sudo apt install clang
-    sudo apt install bat
-    sudo apt install ripgrep
-    sudo apt install tldr
-    sudo apt install flameshot
-    sudo apt install tmux
-    sudo apt install astrill
-    sudo apt install ncdu
-    sudo apt install prettyping
-    sudo apt install htop
-    sudo apt install tree
-    sudo apt install exa
-    sudo apt install fzf
-    sudo apt install yt-dlp
-    sudo apt install vlc
-    sudo apt install autojump
+    sudo apt install -y git
+    sudo apt install -y curl
+    sudo apt install -y unrar
+    sudo apt install -y wget
+    sudo apt install -y build-essential
+    sudo apt install -y make
+    sudo apt install -y ninja-build
+    sudo apt install -y cmake
+    sudo apt install -y clang
+    sudo apt install -y bat
+    sudo apt install -y ripgrep
+    sudo apt install -y tldr
+    sudo apt install -y flameshot
+    sudo apt install -y tmux
+    sudo apt install -y astrill
+    sudo apt install -y ncdu
+    sudo apt install -y prettyping
+    sudo apt install -y htop
+    sudo apt install -y tree
+    sudo apt install -y exa
+    sudo apt install -y fzf
+    sudo apt install -y yt-dlp
+    sudo apt install -y vlc
+    sudo apt install -y autojump
 
     # Install input method
-    sudo apt install fcitx
-    sudo apt install fcitx-googlepinyin
+    sudo apt install -y fcitx
+    sudo apt install -y fcitx-googlepinyin
 
-    sudo apt install python3
-    sudo apt install python3-pip
+    sudo apt install -y python3
+    sudo apt install -y python3-pip
     python -m pip install conan -i https://pypi.tuna.tsinghua.edu.cn/simple
 
     sudo snap install --classic code
@@ -131,9 +131,9 @@ InstallOhMyZsh() {
     echo "Installing ohmyzsh"
 
     if [[ -f /etc/arch-release ]]; then
-        yay -S zsh
+        yay -Sy --needed zsh
     elif [[ -f /etc/debian_version ]]; then
-        sudo apt install zsh
+        sudo apt install -y zsh
     else
         echo "Unsupported OS"
     fi
@@ -171,9 +171,9 @@ InstallOhMyZshPlugins() {
 
 InstallNeovim() {
     if [[ -f /etc/arch-release ]]; then
-        yay -S neovim
+        yay -Sy --needed neovim
     elif [[ -f /etc/debian_version ]]; then
-        sudo apt install neovim
+        sudo apt install -y neovim
     else
         echo "Unsupported OS"
     fi
