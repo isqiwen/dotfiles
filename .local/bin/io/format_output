@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+
+function Trim() {
+    str=$1
+
+    res=$(echo $str | awk 'gsub(/^ *| *$/, "")')
+
+    echo $res
+}
+
+
+# Color Code for tput
+# 0 Black
+# 1 Red
+# 2 Green
+# 3 Yellow
+# 4 Blue
+# 5 Magenta
+# 6 Cyan
+# 7 White
+
+# $1 str              print string
+# $2 color            0-7 set solor
+# $3 bgcolor          0-7 set background color
+# $4 bold             0-1 set bold
+# $5 underline        0-1 set underline
+
+
+function FormatOutput() {
+    str=$1
+    color=$2
+    bgcolor=$3
+    bold=$4
+    underline=$5
+    normal=$(tput sgr0)
+
+    case "$color" in
+        0|1|2|3|4|5|6|7)
+            setcolor=$(tput setaf $color;)
+            ;;
+        *)
+            setcolor=""
+            ;;
+    esac
+
+    case "$bgcolor" in
+        0|1|2|3|4|5|6|7)
+            setbgcolor=$(tput setab $bgcolor;)
+            ;;
+        *)
+            setbgcolor=""
+            ;;
+    esac
+
+    if [[ "$bold" = "1" ]]; then
+        setbold=$(tput bold;)
+    else
+        setbold=""
+    fi
+
+    if [[ "$underline" = "1" ]]; then
+        setunderline=$(tput smul;)
+    else
+        setunderline=""
+    fi
+
+    printf "$setcolor$setbgcolor$setbold$setunderline$str$normal"
+}
+
+function GetRightAlignPos() {
+    str=$(Trim "$1")
+    displayLength=$2
+
+    pos=$[$displayLength - ($displayLength - ${#str}) / 2]
+    echo $pos
+
+    return $pos
+}

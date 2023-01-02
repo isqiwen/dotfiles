@@ -1,15 +1,24 @@
 #!/usr/bin/env bash
 
+
+binPath=$(dirname $(readlink -f $0))
+
+. ${binPath}/io/format_output
+
 processName=$1
 processPID=($(pidof ${processName}))
 
 if [[ -n "$processPID" ]]; then
-    echo "****************************************************************"
-    printf "    kill ${processName}    "
-    echo "****************************************************************"
+    printf "%100s\n" | tr " " "*"
+    displayStr="$(FormatOutput "kill $processName" 2 0 1 1)"
+    pos=$(GetRightAlignPos "$displayStr" 100)
+    printf "%${pos}s\n" "$displayStr"
+    printf "%100s\n" | tr " " "*"
     kill $processPID
 else
-    echo "****************************************************************"
-    echo "    no ${processName} is running    "
-    echo "****************************************************************"
+    printf "%100s\n" | tr " " "*"
+    displayStr="$(FormatOutput "no $processName is running" 2 0 1 1)"
+    pos=$(GetRightAlignPos "$displayStr" 100)
+    printf "%${pos}s\n" "$displayStr"
+    printf "%100s\n" | tr " " "*"
 fi
