@@ -48,6 +48,8 @@ InstallArchPackages() {
     yay -Sy --needed vlc
     yay -Sy --needed miniconda3
     yay -Sy --needed autojump
+    yay -Sy --needed gperftools
+    yay -Sy --needed libunwind
 
     # Install input method
     yay -Sy --needed fcitx
@@ -91,6 +93,10 @@ InstallDebPackages() {
     sudo apt install -y yt-dlp
     sudo apt install -y vlc
     sudo apt install -y autojump
+    sudo apt install -y libgoogle-perftools-dev
+    sudo apt install -y google-perftools
+    sudo apt install -y libunwind-dev
+    sudo apt install -y golang-github-google-pprof-dev
 
     # Install input method
     sudo apt install -y fcitx
@@ -98,7 +104,7 @@ InstallDebPackages() {
 
     sudo apt install -y python3
     sudo apt install -y python3-pip
-    python -m pip install conan -i https://pypi.tuna.tsinghua.edu.cn/simple
+    python3 -m pip install conan -i https://pypi.tuna.tsinghua.edu.cn/simple
 
     sudo snap install --classic code
 
@@ -112,7 +118,7 @@ InstallDebPackages() {
 
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
     sudo chmod +x Miniconda3-latest-Linux-x86_64.sh
-    ./Miniconda3-latest-Linux-x86_64.sh -u
+    ./Miniconda3-latest-Linux-x86_64.sh
 }
 
 InstallPackages() {
@@ -178,7 +184,6 @@ InstallNeovim() {
         echo "Unsupported OS"
     fi
 
-
     rm -rf ${HOME}/.config/nvim
 
     git clone https://github.com/isqiwen/UNvChad.git ${HOME}/.config/nvim
@@ -186,12 +191,12 @@ InstallNeovim() {
 
 CreateSymlinks() {
     for f in "$1"/* "$1"/.[^.]*; do
-        if echo "$f" | egrep '.*\/?((\.){1,2}|.git|assets|README.md|install.sh|.dev|tags)$' > /dev/null; then
+        if echo "$f" | egrep '.*\/?((\.){1,2}|.git|assets|README.md|install.sh|.dev|tags)$' >/dev/null; then
             continue
         fi
         if [[ -f $f ]]; then
-            echo ""$HOME/$f" -> `realpath "$f"`"
-            ln -sfn `realpath "$f"` "$HOME/$f"
+            echo ""$HOME/$f" -> $(realpath "$f")"
+            ln -sfn $(realpath "$f") "$HOME/$f"
         fi
         if [[ -d $f ]]; then
             mkdir -p "$HOME"/"$f"
@@ -220,25 +225,31 @@ Main() {
 
     items=(${ACreateDirectories} ${AInstallPackages} ${AInstallOhMyZsh} ${AInstallOhMyZshPlugins} ${AInstallNeovim} ${ACreateSymlinks} ${AQuit})
 
-    select action in "${items[@]}"
-    do
+    select action in "${items[@]}"; do
         case $action in
-            ${ACreateDirectories})
-                CreateDirectories;;
-            ${AInstallPackages})
-                InstallPackages;;
-            ${AInstallOhMyZsh})
-                InstallOhMyZsh;;
-            ${AInstallOhMyZshPlugins})
-                InstallOhMyZshPlugins;;
-            ${AInstallNeovim})
-                InstallNeovim;;
-            ${ACreateSymlinks})
-                CreateSymlinks .;;
-            ${AQuit})
-                echo "You must log out of the system so that all changes take into effect."
-                break;;
-            *)
+        ${ACreateDirectories})
+            CreateDirectories
+            ;;
+        ${AInstallPackages})
+            InstallPackages
+            ;;
+        ${AInstallOhMyZsh})
+            InstallOhMyZsh
+            ;;
+        ${AInstallOhMyZshPlugins})
+            InstallOhMyZshPlugins
+            ;;
+        ${AInstallNeovim})
+            InstallNeovim
+            ;;
+        ${ACreateSymlinks})
+            CreateSymlinks .
+            ;;
+        ${AQuit})
+            echo "You must log out of the system so that all changes take into effect."
+            break
+            ;;
+        *) ;;
         esac
     done
 
