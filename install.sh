@@ -97,10 +97,13 @@ InstallDebPackages() {
     sudo apt install -y google-perftools
     sudo apt install -y libunwind-dev
     sudo apt install -y golang-github-google-pprof-dev
+    sudo apt install -y gnome-tweaks
 
     # Install input method
-    sudo apt install -y fcitx
-    sudo apt install -y fcitx-googlepinyin
+    sudo apt install -y fcitx5
+    sudo apt install -y fcitx5-chinese-addons
+    sudo apt install -y fcitx5-frontend-gtk3 fcitx5-frontend-gtk2
+    sudo apt install -y fcitx5-frontend-qt5 kde-config-fcitx5
 
     sudo apt install -y python3
     sudo apt install -y python3-pip
