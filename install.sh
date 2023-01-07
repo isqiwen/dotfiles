@@ -109,8 +109,6 @@ InstallDebPackages() {
     sudo apt install -y python3-pip
     python3 -m pip install conan -i https://pypi.tuna.tsinghua.edu.cn/simple
 
-    sudo snap install --classic code
-
     cd /tmp/
 
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
