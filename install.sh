@@ -99,12 +99,6 @@ InstallDebPackages() {
     sudo apt install -y golang-github-google-pprof-dev
     sudo apt install -y gnome-tweaks
 
-    # Install input method
-    sudo apt install -y fcitx5
-    sudo apt install -y fcitx5-chinese-addons
-    sudo apt install -y fcitx5-frontend-gtk3 fcitx5-frontend-gtk2
-    sudo apt install -y fcitx5-frontend-qt5 kde-config-fcitx5
-
     sudo apt install -y python3
     sudo apt install -y python3-pip
     python3 -m pip install conan -i https://pypi.tuna.tsinghua.edu.cn/simple
