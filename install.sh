@@ -50,6 +50,8 @@ InstallArchPackages() {
     yay -Sy --needed autojump
     yay -Sy --needed gperftools
     yay -Sy --needed libunwind
+    yay -Sy --needed neofetch
+    yay -Sy --needed proxychains
 
     # Install input method
     yay -Sy --needed fcitx
@@ -98,6 +100,8 @@ InstallDebPackages() {
     sudo apt install -y libunwind-dev
     sudo apt install -y golang-github-google-pprof-dev
     sudo apt install -y gnome-tweaks
+    sudo apt install -y neofetch
+    sudo apt install -y proxychains
 
     sudo apt install -y python3
     sudo apt install -y python3-pip
