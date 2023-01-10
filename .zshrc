@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -77,19 +77,19 @@ DISABLE_AUTO_UPDATE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	git
-	tmux
-	web-search
-	cp
-	extract
-	alias-finder
-	history-substring-search
-	autojump
-	fzf-tab
-	forgit
-	autoupdate
-	zsh-autosuggestions
-	zsh-syntax-highlighting
+    git
+    tmux
+    web-search
+    cp
+    extract
+    alias-finder
+    history-substring-search
+    autojump
+    fzf-tab
+    forgit
+    autoupdate
+    zsh-autosuggestions
+    zsh-syntax-highlighting
 )
 
 
@@ -121,29 +121,13 @@ plugins=(
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
-	mkdir $ZSH_CACHE_DIR
+    mkdir $ZSH_CACHE_DIR
 fi
 
 source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/qiwen/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/qiwen/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/qiwen/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/qiwen/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -153,6 +137,8 @@ export PATH="$HOME/.local/bin:${PATH}"
 
 export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
+export GCC=/usr/lib/gcc
+export GXX=/use/lib/g++
 
 # Store your own aliases in the ~/.aliases file and load the here.
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"

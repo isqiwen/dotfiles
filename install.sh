@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ue
 
 CreateDirectories() {
     echo "Creating Downloads,Documents,Pictures/Screenshots,workspace"
@@ -85,7 +85,6 @@ InstallDebPackages() {
     sudo apt install -y tldr
     sudo apt install -y flameshot
     sudo apt install -y tmux
-    sudo apt install -y astrill
     sudo apt install -y ncdu
     sudo apt install -y prettyping
     sudo apt install -y htop
@@ -102,10 +101,18 @@ InstallDebPackages() {
     sudo apt install -y gnome-tweaks
     sudo apt install -y neofetch
     sudo apt install -y proxychains
+    sudo apt install -y nodejs
+    sudo apt install -y npm
+
+    sudo apt install -y fonts-cascadia-code
 
     sudo apt install -y python3
     sudo apt install -y python3-pip
     python3 -m pip install conan -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+    sudo dpkg -i packages/astrill-setup-linux64.deb
+
+    sudo dpkg -i packages/wezterm-20221119-145034-49b9839f.Ubuntu22.04.deb
 
     cd /tmp/
 
@@ -114,10 +121,6 @@ InstallDebPackages() {
 
     wget https://github.com/sharkdp/fd/releases/download/v8.2.1/fd_8.2.1_amd64.deb
     sudo dpkg -i fd_8.2.1_amd64.deb
-
-    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-    sudo chmod +x Miniconda3-latest-Linux-x86_64.sh
-    ./Miniconda3-latest-Linux-x86_64.sh
 }
 
 InstallPackages() {
