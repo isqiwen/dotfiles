@@ -60,7 +60,6 @@ InstallArchPackages() {
 
     yay -Sy --needed python3
     yay -Sy --needed python-pip
-    python3 -m pip install conan -i https://pypi.tuna.tsinghua.edu.cn/simple
 }
 
 InstallDebPackages() {
@@ -109,7 +108,6 @@ InstallDebPackages() {
 
     sudo apt install -y python3
     sudo apt install -y python3-pip
-    python3 -m pip install conan -i https://pypi.tuna.tsinghua.edu.cn/simple
 
     sudo dpkg -i packages/astrill-setup-linux64.deb
 
@@ -147,12 +145,12 @@ InstallOhMyZsh() {
         echo "Unsupported OS"
     fi
 
-    chsh -s $(which zsh)
+    chsh -s "$(which zsh)"
 
     # Check for Oh My Zsh and install if we don't have it
     if [ -d ~/.oh-my-zsh ]; then
         echo "oh-my-zsh is installed"
-        sh ${HOME}/.oh-my-zsh/tools/uninstall.sh
+        sh "${HOME}/.oh-my-zsh/tools/uninstall.sh"
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/HEAD/tools/install.sh)"
     else
         echo "oh-my-zsh is not installed"
@@ -168,14 +166,14 @@ InstallOhMyZshPlugins() {
         exit 0
     fi
 
-    rm -rf ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
+    rm -rf "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"
 
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
-    git clone https://github.com/TamCore/autoupdate-oh-my-zsh-plugins ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/autoupdate
-    git clone https://github.com/wfxr/forgit ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/forgit
-    git clone https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+    git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    git clone https://github.com/Aloxaf/fzf-tab "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab"
+    git clone https://github.com/TamCore/autoupdate-oh-my-zsh-plugins "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/autoupdate"
+    git clone https://github.com/wfxr/forgit "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/forgit"
+    git clone https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k"
 }
 
 InstallNeovim() {
@@ -187,19 +185,27 @@ InstallNeovim() {
         echo "Unsupported OS"
     fi
 
-    rm -rf ${HOME}/.config/nvim
+    rm -rf "${HOME}/.config/nvim"
 
-    git clone https://github.com/isqiwen/UNvChad.git ${HOME}/.config/nvim
+    git clone https://github.com/isqiwen/UNvChad.git "${HOME}/.config/nvim"
+}
+
+InstallConan() {
+    conanConfigPath=$1
+    python3 -m pip install conan -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+    conan config install "$conanConfigPath"
+    conan profile update settings.compiler.libcxx=libstdc++11 default
 }
 
 CreateSymlinks() {
     for f in "$1"/* "$1"/.[^.]*; do
-        if echo "$f" | egrep '.*\/?((\.){1,2}|.git|assets|README.md|install.sh|.dev|tags)$' >/dev/null; then
+        if echo "$f" | grep -E '.*\/?((\.){1,2}|.git|assets|README.md|install.sh|.dev|tags|packages)$' >/dev/null; then
             continue
         fi
         if [[ -f $f ]]; then
-            echo ""$HOME/$f" -> $(realpath "$f")"
-            ln -sfn $(realpath "$f") "$HOME/$f"
+            echo """$HOME/$f"" -> $(realpath "$f")"
+            ln -sfn "$(realpath "$f")" "$HOME/$f"
         fi
         if [[ -d $f ]]; then
             mkdir -p "$HOME"/"$f"
@@ -209,6 +215,7 @@ CreateSymlinks() {
 }
 
 Main() {
+    workPath=$1
 
     echo "######################################"
     echo "      Setting up your linux...        "
@@ -223,32 +230,36 @@ Main() {
     AInstallOhMyZsh="InstallOhMyZsh"
     AInstallOhMyZshPlugins="InstallOhMyZshPlugins"
     AInstallNeovim="InstallNeovim"
+    AInstallConan="InstallConan"
     ACreateSymlinks="CreateSymlinks"
     AQuit="Quit"
 
-    items=(${ACreateDirectories} ${AInstallPackages} ${AInstallOhMyZsh} ${AInstallOhMyZshPlugins} ${AInstallNeovim} ${ACreateSymlinks} ${AQuit})
+    items=("${ACreateDirectories}" "${AInstallPackages}" "${AInstallOhMyZsh}" "${AInstallOhMyZshPlugins}" "${AInstallNeovim}" "${AInstallConan}" "${ACreateSymlinks}" "${AQuit}")
 
     select action in "${items[@]}"; do
         case $action in
-        ${ACreateDirectories})
+        "$ACreateDirectories}")
             CreateDirectories
             ;;
-        ${AInstallPackages})
+        "${AInstallPackages}")
             InstallPackages
             ;;
-        ${AInstallOhMyZsh})
+        "${AInstallOhMyZsh}")
             InstallOhMyZsh
             ;;
-        ${AInstallOhMyZshPlugins})
+        "${AInstallOhMyZshPlugins}")
             InstallOhMyZshPlugins
             ;;
-        ${AInstallNeovim})
+        "${AInstallNeovim}")
             InstallNeovim
             ;;
-        ${ACreateSymlinks})
+        "${AInstallConan}")
+            InstallConan "${workPath}/.dev/.conan"
+            ;;
+        "${ACreateSymlinks}")
             CreateSymlinks .
             ;;
-        ${AQuit})
+        "${AQuit}")
             echo "You must log out of the system so that all changes take into effect."
             break
             ;;
@@ -258,4 +269,8 @@ Main() {
 
 }
 
-Main
+SCRIPT_PATH="${BASH_SOURCE:-$0}"
+ABS_SCRIPT_PATH="$(realpath "${SCRIPT_PATH}")"
+ABS_DIRECTORY="$(dirname "${ABS_SCRIPT_PATH}")"
+
+Main "$ABS_DIRECTORY"
