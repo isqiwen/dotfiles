@@ -129,23 +129,8 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH=$BUN_INSTALL/bin:$PATH
-
-export PATH="$HOME/.local/bin:${PATH}"
-
-export CC=/usr/bin/gcc
-export CXX=/usr/bin/g++
-export GCC=/usr/lib/gcc
-export GXX=/use/lib/g++
-
 # Store your own aliases in the ~/.aliases file and load the here.
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
-# Encoding stuff for the terminal
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
-export BUNDLER_EDITOR=nvim
-export EDITOR=nvim
+# env
+[[ -f "$HOME/.env" ]] && source "$HOME/.env"
