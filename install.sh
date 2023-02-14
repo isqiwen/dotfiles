@@ -103,6 +103,8 @@ InstallDebPackages() {
     sudo apt install -y nodejs
     sudo apt install -y npm
     sudo apt install -y dconf-editor
+    sudo apt install -y libfftw3-dev
+    sudo apt install -y mpich
 
     sudo apt install -y fonts-cascadia-code
 
