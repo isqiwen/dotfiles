@@ -134,3 +134,5 @@ source $ZSH/oh-my-zsh.sh
 
 # env
 [[ -f "$HOME/.env" ]] && source "$HOME/.env"
+
+export PATH="$PATH:~/.local/bin"
