@@ -4,7 +4,7 @@ set -ue
 
 CreateDirectories() {
     echo "Creating Downloads,Documents,Pictures/Screenshots,workspace"
-    mkdir -pv ~/{Downloads,Documents,Pictures/Screenshots,workspace}/
+    mkdir -pv ~/{Downloads,Documents,Pictures/Screenshots,Tools,Workspace}/
 }
 
 InstallArchPackages() {

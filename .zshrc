@@ -135,4 +135,7 @@ source $ZSH/oh-my-zsh.sh
 # env
 [[ -f "$HOME/.env" ]] && source "$HOME/.env"
 
-export PATH="$PATH:~/.local/bin"
+# bun completions
+[ -s "~/.bun/_bun" ] && source "~/.bun/_bun"
+
+export PATH="$PATH:~/Tools/"
